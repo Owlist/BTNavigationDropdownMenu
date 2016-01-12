@@ -575,7 +575,9 @@ class BTTableViewCell: UITableViewCell {
         
         // Setup cell
         cellContentFrame = CGRectMake(0, 0, (UIApplication.sharedApplication().keyWindow?.frame.width)!, self.configuration.cellHeight)
-        self.contentView.backgroundColor = self.configuration.cellBackgroundColor
+//        self.contentView.backgroundColor = self.configuration.cellBackgroundColor
+        self.contentView.backgroundColor = UIColor.redColor()
+
         self.selectionStyle = UITableViewCellSelectionStyle.None
         self.textLabel!.textColor = self.configuration.cellTextLabelColor
         self.textLabel!.font = self.configuration.cellTextLabelFont
@@ -593,7 +595,7 @@ class BTTableViewCell: UITableViewCell {
             self.numberLabel = UILabel(frame: CGRectMake(cellContentFrame.width - numberLabelWidth, (cellContentFrame.height - 30)/2, 30, 30))
         } else if self.textLabel!.textAlignment == .Left {
             self.serviceIcon = UIImageView(frame: CGRectMake(horizontalMargin, (cellContentFrame.height - 30)/2, 30, 30))
-            self.numberLabel = UILabel(frame: CGRectMake(cell.bounds.width - numberLabelWidth, (cellContentFrame.height - 30)/2, 30, 30))
+            self.numberLabel = UILabel(frame: CGRectMake(cellContentFrame.width - numberLabelWidth, (cellContentFrame.height - 30)/2, 30, 30))
         } else {
             self.numberLabel = UILabel(frame: CGRectMake(horizontalMargin, (cellContentFrame.height - 30)/2, 30, 30))
         }
