@@ -39,6 +39,17 @@ public class BTNavigationDropdownMenu: UIView {
         }
     }
     
+    // The font of the title on the menu. Default is HelveticaNeue-Bold, size 19
+    public var menuTitleLabelFont: UIFont! {
+        get {
+            return self.configuration.menuTitleLabelFont
+        }
+        set(value) {
+            self.configuration.menuTitleLabelFont = value
+            self.menuTitle.font = self.configuration.menuTitleLabelFont
+        }
+    }
+    
     // The height of the cell. Default is 50
     public var cellHeight: CGFloat! {
         get {
@@ -85,7 +96,6 @@ public class BTNavigationDropdownMenu: UIView {
         }
         set(value) {
             self.configuration.cellTextLabelFont = value
-            self.menuTitle.font = self.configuration.cellTextLabelFont
         }
     }
     
@@ -203,7 +213,7 @@ public class BTNavigationDropdownMenu: UIView {
         }
         
         // Get titleSize
-        let titleSize = (title as NSString).sizeWithAttributes([NSFontAttributeName:self.configuration.cellTextLabelFont])
+        let titleSize = (title as NSString).sizeWithAttributes([NSFontAttributeName:self.configuration.menuTitleLabelFont])
         
         // Set frame
         let frame = CGRectMake(0, 0, titleSize.width + (self.configuration.arrowPadding + self.configuration.arrowImage.size.width)*2, self.navigationController!.navigationBar.frame.height)
@@ -226,7 +236,7 @@ public class BTNavigationDropdownMenu: UIView {
         self.menuTitle = UILabel(frame: frame)
         self.menuTitle.text = title
         self.menuTitle.textColor = self.menuTitleColor
-        self.menuTitle.font = self.configuration.cellTextLabelFont
+        self.menuTitle.font = self.configuration.menuTitleLabelFont
         self.menuTitle.textAlignment = self.configuration.cellTextLabelAlignment
         self.menuButton.addSubview(self.menuTitle)
         
@@ -400,6 +410,7 @@ public class BTNavigationDropdownMenu: UIView {
 // MARK: BTConfiguration
 class BTConfiguration {
     var menuTitleColor: UIColor?
+    var menuTitleLabelFont: UIFont!
     var cellHeight: CGFloat!
     var cellBackgroundColor: UIColor?
     var cellSeparatorColor: UIColor?
@@ -428,6 +439,7 @@ class BTConfiguration {
 
         // Default values
         self.menuTitleColor = UIColor.darkGrayColor()
+        self.menuTitleLabelFont = UIFont(name: "HelveticaNeue-Bold", size: 17)
         self.cellHeight = 50
         self.cellBackgroundColor = UIColor.whiteColor()
         self.cellSeparatorColor = UIColor.darkGrayColor()
