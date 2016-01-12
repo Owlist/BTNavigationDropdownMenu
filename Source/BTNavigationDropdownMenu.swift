@@ -591,7 +591,7 @@ class BTTableViewCell: UITableViewCell {
         if self.textLabel!.textAlignment == .Center {
             self.numberLabel = UILabel(frame: CGRectMake(cellContentFrame.width - numberLabelWidth, (cellContentFrame.height - 30)/2, 30, 30))
         } else if self.textLabel!.textAlignment == .Left {
-            self.serviceIcon = UIImageView(frame: CGRectMake(30, (cellContentFrame.height - 30)/2, 30, 30))
+            self.serviceIcon = UIImageView(frame: CGRectMake(0, (cellContentFrame.height - 30)/2, 30, 30))
             self.numberLabel = UILabel(frame: CGRectMake(cellContentFrame.width - numberLabelWidth, (cellContentFrame.height - 30)/2, 30, 30))
         } else {
             self.numberLabel = UILabel(frame: CGRectMake(horizontalMargin, (cellContentFrame.height - 30)/2, 30, 30))
