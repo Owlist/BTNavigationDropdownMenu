@@ -556,11 +556,11 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
 // MARK: Table view cell
 class BTTableViewCell: UITableViewCell {
     
-    let numberLabelWidth: CGFloat = 20
+    let numberLabelWidth: CGFloat = 30
     let serviceIconWidth: CGFloat = 50
     
     let horizontalMargin: CGFloat = 20
-    let iconPadding: CGFloat = 10
+    let iconPadding: CGFloat = 0
     
     var serviceIcon: UIImageView!
     var numberLabel: UILabel!
@@ -591,12 +591,12 @@ class BTTableViewCell: UITableViewCell {
         
         // Checkmark icon
         if self.textLabel!.textAlignment == .Center {
-            self.numberLabel = UILabel(frame: CGRectMake(cellContentFrame.width - numberLabelWidth, (cellContentFrame.height - 30)/2, 30, 20))
+            self.numberLabel = UILabel(frame: CGRectMake(cellContentFrame.width - numberLabelWidth, (cellContentFrame.height - 30)/2, 20, 30))
         } else if self.textLabel!.textAlignment == .Left {
             self.serviceIcon = UIImageView(frame: CGRectMake(horizontalMargin, (cellContentFrame.height - 30)/2, 30, 30))
-            self.numberLabel = UILabel(frame: CGRectMake(cellContentFrame.width - numberLabelWidth, (cellContentFrame.height - 30)/2, 30, 20))
+            self.numberLabel = UILabel(frame: CGRectMake(cellContentFrame.width - numberLabelWidth, (cellContentFrame.height - 30)/2, 20, 30))
         } else {
-            self.numberLabel = UILabel(frame: CGRectMake(horizontalMargin, (cellContentFrame.height - 30)/2, 30, 20))
+            self.numberLabel = UILabel(frame: CGRectMake(horizontalMargin, (cellContentFrame.height - 30)/2, 20, 30))
         }
         self.serviceIcon.image = self.configuration.serviceIconImage
         self.serviceIcon.contentMode = UIViewContentMode.Center
