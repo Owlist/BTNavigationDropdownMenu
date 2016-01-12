@@ -603,6 +603,7 @@ class BTTableViewCell: UITableViewCell {
         self.contentView.addSubview(self.serviceIcon)
         self.numberLabel.text = self.configuration.cellNumberLabelValue.stringValue
         self.numberLabel.font = self.configuration.cellNumberLabelFont
+        self.numberLabel.textColor = self.configuration.cellTextLabelColor
         self.contentView.addSubview(self.numberLabel)
         
         // Separator for cell
