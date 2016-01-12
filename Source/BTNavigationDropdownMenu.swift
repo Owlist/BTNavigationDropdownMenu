@@ -118,13 +118,34 @@ public class BTNavigationDropdownMenu: UIView {
         }
     }
     
-    // The checkmark icon of the cell
-    public var checkMarkImage: UIImage! {
+    // The font of the number at the end of the cell. Default is HelveticaNeue-Bold, size 19
+    public var cellNumberLabelFont: UIFont! {
         get {
-            return self.configuration.checkMarkImage
+            return self.configuration.cellNumberLabelFont
         }
         set(value) {
-            self.configuration.checkMarkImage = value
+            self.configuration.cellNumberLabelFont = value
+        }
+    }
+    
+    // The value of the number at the end of the cell. Default is HelveticaNeue-Bold, size 19
+    public var cellNumberLabelValue: Integer! {
+        get {
+            return self.configuration.cellNumberLabelValue
+        }
+        set(value) {
+            self.configuration.cellNumberLabelValue = value
+        }
+    }
+    
+    
+    // The checkmark icon of the cell
+    public var serviceImage: UIImage! {
+        get {
+            return self.configuration.serviceImage
+        }
+        set(value) {
+            self.configuration.serviceImage = value
         }
     }
     
@@ -415,9 +436,11 @@ class BTConfiguration {
     var cellSeparatorColor: UIColor?
     var cellTextLabelColor: UIColor?
     var cellTextLabelFont: UIFont!
+    var cellNumberLabelFont: UIFont!
+    var cellNumberLabelValue: Integer!
     var cellTextLabelAlignment: NSTextAlignment!
     var cellSelectionColor: UIColor?
-    var checkMarkImage: UIImage!
+    var serviceImage: UIImage!
     var arrowImage: UIImage!
     var arrowPadding: CGFloat!
     var animationDuration: NSTimeInterval!
@@ -433,7 +456,7 @@ class BTConfiguration {
         let bundle = NSBundle(forClass: BTConfiguration.self)
         let url = bundle.URLForResource("BTNavigationDropdownMenu", withExtension: "bundle")
         let imageBundle = NSBundle(URL: url!)
-        let checkMarkImagePath = imageBundle?.pathForResource("checkmark_icon", ofType: "png")
+        let serviceImagePath = imageBundle?.pathForResource("checkmark_icon", ofType: "png")
         let arrowImagePath = imageBundle?.pathForResource("arrow_down_icon", ofType: "png")
 
         // Default values
@@ -444,9 +467,11 @@ class BTConfiguration {
         self.cellSeparatorColor = UIColor.darkGrayColor()
         self.cellTextLabelColor = UIColor.darkGrayColor()
         self.cellTextLabelFont = UIFont(name: "HelveticaNeue-Bold", size: 17)
+        self.cellNumberLabelFont = UIFont(name: "HelveticaNeue-Bold", size: 17)
+        self.cellNumberLabelFont = 1
         self.cellTextLabelAlignment = NSTextAlignment.Left
         self.cellSelectionColor = UIColor.lightGrayColor()
-        self.checkMarkImage = UIImage(contentsOfFile: checkMarkImagePath!)
+        self.serviceImage = UIImage(contentsOfFile: serviceImagePath!)
         self.animationDuration = 0.5
         self.arrowImage = UIImage(contentsOfFile: arrowImagePath!)
         self.arrowPadding = 15
@@ -509,7 +534,6 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = BTTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell", configuration: self.configuration)
         cell.textLabel?.text = self.items[indexPath.row] as? String
-        cell.checkmarkIcon.hidden = (indexPath.row == selectedIndexPath) ? false : true
         
         return cell
     }
@@ -525,17 +549,21 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as? BTTableViewCell
-        cell?.checkmarkIcon.hidden = true
         cell?.contentView.backgroundColor = self.configuration.cellBackgroundColor
     }
 }
 
 // MARK: Table view cell
 class BTTableViewCell: UITableViewCell {
-    let checkmarkIconWidth: CGFloat = 50
+    
+    let numberLabelWidth: CGFloat = 50
+    let serviceIconWidth: CGFloat = 50
+    
     let horizontalMargin: CGFloat = 20
     
-    var checkmarkIcon: UIImageView!
+    var serviceIcon: UIImageView!
+    var numberLabel: UILabel!
+    
     var cellContentFrame: CGRect!
     var configuration: BTConfiguration!
     
@@ -561,16 +589,19 @@ class BTTableViewCell: UITableViewCell {
         
         // Checkmark icon
         if self.textLabel!.textAlignment == .Center {
-            self.checkmarkIcon = UIImageView(frame: CGRectMake(cellContentFrame.width - checkmarkIconWidth, (cellContentFrame.height - 30)/2, 30, 30))
+            self.numberLabel = UILabel(frame: CGRectMake(cellContentFrame.width - numberLabelWidth, (cellContentFrame.height - 30)/2, 30, 30))
         } else if self.textLabel!.textAlignment == .Left {
-            self.checkmarkIcon = UIImageView(frame: CGRectMake(cellContentFrame.width - checkmarkIconWidth, (cellContentFrame.height - 30)/2, 30, 30))
+            self.serviceIcon = UIImageView(frame: CGRectMake(serviceIconWidth, (cellContentFrame.height - 30)/2, 30, 30))
+            self.numberLabel = UILabel(frame: CGRectMake(cellContentFrame.width - numberLabelWidth, (cellContentFrame.height - 30)/2, 30, 30))
         } else {
-            self.checkmarkIcon = UIImageView(frame: CGRectMake(horizontalMargin, (cellContentFrame.height - 30)/2, 30, 30))
+            self.numberLabel = UILabel(frame: CGRectMake(horizontalMargin, (cellContentFrame.height - 30)/2, 30, 30))
         }
-        self.checkmarkIcon.hidden = true
-        self.checkmarkIcon.image = self.configuration.checkMarkImage
-        self.checkmarkIcon.contentMode = UIViewContentMode.ScaleAspectFill
-        self.contentView.addSubview(self.checkmarkIcon)
+        self.serviceIcon.image = self.configuration.serviceIconImage
+        self.serviceIcon.contentMode = UIViewContentMode.ScaleAspectFill
+        self.contentView.addSubview(self.serviceIcon)
+        self.numberLabel.text = self.configuration.cellNumberLabelValue
+        self.numberLabel.font = self.configuration.cellNumberLabelFont
+        self.contentView.addSubview(self.numberLabel)
         
         // Separator for cell
         let separator = BTTableCellContentView(frame: cellContentFrame)
