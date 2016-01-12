@@ -129,7 +129,7 @@ public class BTNavigationDropdownMenu: UIView {
     }
     
     // The value of the number at the end of the cell. Default is HelveticaNeue-Bold, size 19
-    public var cellNumberLabelValue: Integer! {
+    public var cellNumberLabelValue: NSNumber! {
         get {
             return self.configuration.cellNumberLabelValue
         }
@@ -140,12 +140,12 @@ public class BTNavigationDropdownMenu: UIView {
     
     
     // The checkmark icon of the cell
-    public var serviceImage: UIImage! {
+    public var serviceIconImage: UIImage! {
         get {
-            return self.configuration.serviceImage
+            return self.configuration.serviceIconImage
         }
         set(value) {
-            self.configuration.serviceImage = value
+            self.configuration.serviceIconImage = value
         }
     }
     
@@ -437,10 +437,10 @@ class BTConfiguration {
     var cellTextLabelColor: UIColor?
     var cellTextLabelFont: UIFont!
     var cellNumberLabelFont: UIFont!
-    var cellNumberLabelValue: Integer!
+    var cellNumberLabelValue: NSNumber!
     var cellTextLabelAlignment: NSTextAlignment!
     var cellSelectionColor: UIColor?
-    var serviceImage: UIImage!
+    var serviceIconImage: UIImage!
     var arrowImage: UIImage!
     var arrowPadding: CGFloat!
     var animationDuration: NSTimeInterval!
@@ -456,7 +456,7 @@ class BTConfiguration {
         let bundle = NSBundle(forClass: BTConfiguration.self)
         let url = bundle.URLForResource("BTNavigationDropdownMenu", withExtension: "bundle")
         let imageBundle = NSBundle(URL: url!)
-        let serviceImagePath = imageBundle?.pathForResource("checkmark_icon", ofType: "png")
+        let serviceIconImagePath = imageBundle?.pathForResource("checkmark_icon", ofType: "png")
         let arrowImagePath = imageBundle?.pathForResource("arrow_down_icon", ofType: "png")
 
         // Default values
@@ -468,10 +468,10 @@ class BTConfiguration {
         self.cellTextLabelColor = UIColor.darkGrayColor()
         self.cellTextLabelFont = UIFont(name: "HelveticaNeue-Bold", size: 17)
         self.cellNumberLabelFont = UIFont(name: "HelveticaNeue-Bold", size: 17)
-        self.cellNumberLabelFont = 1
+        self.cellNumberLabelValue = 1
         self.cellTextLabelAlignment = NSTextAlignment.Left
         self.cellSelectionColor = UIColor.lightGrayColor()
-        self.serviceImage = UIImage(contentsOfFile: serviceImagePath!)
+        self.serviceIconImage = UIImage(contentsOfFile: serviceIconImagePath!)
         self.animationDuration = 0.5
         self.arrowImage = UIImage(contentsOfFile: arrowImagePath!)
         self.arrowPadding = 15
