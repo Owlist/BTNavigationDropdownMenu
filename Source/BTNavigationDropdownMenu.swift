@@ -556,7 +556,7 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
 // MARK: Table view cell
 class BTTableViewCell: UITableViewCell {
     
-    let numberLabelWidth: CGFloat = 50
+    let numberLabelWidth: CGFloat = 20
     let serviceIconWidth: CGFloat = 50
     
     let horizontalMargin: CGFloat = 20
@@ -575,8 +575,7 @@ class BTTableViewCell: UITableViewCell {
         
         // Setup cell
         cellContentFrame = CGRectMake(0, 0, (UIApplication.sharedApplication().keyWindow?.frame.width)!, self.configuration.cellHeight)
-//        self.contentView.backgroundColor = self.configuration.cellBackgroundColor
-        self.contentView.backgroundColor = UIColor.redColor()
+        self.contentView.backgroundColor = self.configuration.cellBackgroundColor
 
         self.selectionStyle = UITableViewCellSelectionStyle.None
         self.textLabel!.textColor = self.configuration.cellTextLabelColor
@@ -592,12 +591,12 @@ class BTTableViewCell: UITableViewCell {
         
         // Checkmark icon
         if self.textLabel!.textAlignment == .Center {
-            self.numberLabel = UILabel(frame: CGRectMake(cellContentFrame.width - numberLabelWidth, (cellContentFrame.height - 30)/2, 30, 30))
+            self.numberLabel = UILabel(frame: CGRectMake(cellContentFrame.width - numberLabelWidth, (cellContentFrame.height - 30)/2, 30, 20))
         } else if self.textLabel!.textAlignment == .Left {
             self.serviceIcon = UIImageView(frame: CGRectMake(horizontalMargin, (cellContentFrame.height - 30)/2, 30, 30))
-            self.numberLabel = UILabel(frame: CGRectMake(cellContentFrame.width - numberLabelWidth, (cellContentFrame.height - 30)/2, 30, 30))
+            self.numberLabel = UILabel(frame: CGRectMake(cellContentFrame.width - numberLabelWidth, (cellContentFrame.height - 30)/2, 30, 20))
         } else {
-            self.numberLabel = UILabel(frame: CGRectMake(horizontalMargin, (cellContentFrame.height - 30)/2, 30, 30))
+            self.numberLabel = UILabel(frame: CGRectMake(horizontalMargin, (cellContentFrame.height - 30)/2, 30, 20))
         }
         self.serviceIcon.image = self.configuration.serviceIconImage
         self.serviceIcon.contentMode = UIViewContentMode.Center
