@@ -596,7 +596,7 @@ class BTTableViewCell: UITableViewCell {
             self.numberLabel = UILabel(frame: CGRectMake(horizontalMargin, (cellContentFrame.height - 30)/2, 30, 30))
         }
         self.serviceIcon.image = self.configuration.serviceIconImage
-        self.serviceIcon.contentMode = UIViewContentMode.ScaleAspectFill
+        self.serviceIcon.contentMode = UIViewContentMode.Center
         self.contentView.addSubview(self.serviceIcon)
         self.numberLabel.text = self.configuration.cellNumberLabelValue.stringValue
         self.numberLabel.font = self.configuration.cellNumberLabelFont
