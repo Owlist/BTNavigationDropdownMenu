@@ -212,6 +212,7 @@ public class BTNavigationDropdownMenu: UIView {
     private var backgroundView: UIView!
     private var tableView: BTTableView!
     private var items: [AnyObject]!
+    private var icons: [AnyObject]!
     private var menuWrapper: UIView!
     
     required public init?(coder aDecoder: NSCoder) {
@@ -219,11 +220,11 @@ public class BTNavigationDropdownMenu: UIView {
     }
     
     @available(*, deprecated, message="Use init(navigationController:title:items:) instead", renamed="BTNavigationDropdownMenu(navigationController: UINavigationController?, title: String, items: [AnyObject])")
-    public convenience init(title: String, items: [AnyObject]) {
-        self.init(navigationController: nil, title: title, items: items)
+    public convenience init(title: String, items: [AnyObject], icons: [AnyObject]) {
+        self.init(navigationController: nil, title: title, items: items, icons: icons)
     }
     
-    public init(navigationController: UINavigationController?, title: String, items: [AnyObject]) {
+    public init(navigationController: UINavigationController?, title: String, items: [AnyObject], icons: [AnyObject]) {
         
         // Navigation controller
         if let navigationController = navigationController {
@@ -244,6 +245,7 @@ public class BTNavigationDropdownMenu: UIView {
         
         self.isShown = false
         self.items = items
+        self.icons = icons
         
         // Init properties
         self.setupDefaultConfiguration()
@@ -280,7 +282,7 @@ public class BTNavigationDropdownMenu: UIView {
         self.backgroundView.addGestureRecognizer(backgroundTapRecognizer)
         
         // Init table view
-        self.tableView = BTTableView(frame: CGRectMake(menuWrapperBounds.origin.x, menuWrapperBounds.origin.y + 0.5, menuWrapperBounds.width, menuWrapperBounds.height + 300), items: items, configuration: self.configuration)
+        self.tableView = BTTableView(frame: CGRectMake(menuWrapperBounds.origin.x, menuWrapperBounds.origin.y + 0.5, menuWrapperBounds.width, menuWrapperBounds.height + 300), items: items, icons: icons, configuration: self.configuration)
         
         self.tableView.selectRowAtIndexPathHandler = { (indexPath: Int) -> () in
             self.didSelectItemAtIndexHandler!(indexPath: indexPath)
@@ -489,16 +491,18 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     // Private properties
     private var items: [AnyObject]!
+    private var icons: [AnyObject]!
     private var selectedIndexPath: Int!
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(frame: CGRect, items: [AnyObject], configuration: BTConfiguration) {
+    init(frame: CGRect, items: [AnyObject], icons: [AnyObject], configuration: BTConfiguration) {
         super.init(frame: frame, style: UITableViewStyle.Plain)
         
         self.items = items
+        self.icons = icons
         self.selectedIndexPath = 0
         self.configuration = configuration
         
@@ -534,7 +538,7 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = BTTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell", configuration: self.configuration)
         cell.textLabel?.text = self.items[indexPath.row] as? String
-        
+        cell.serviceIcon?.image = UIImage(named: self.icons[indexPath.row] as? String)
         return cell
     }
     
