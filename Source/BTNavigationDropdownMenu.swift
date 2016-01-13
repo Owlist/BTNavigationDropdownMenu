@@ -601,12 +601,12 @@ class BTTableViewCell: UITableViewCell {
             self.textLabel!.frame = CGRectMake(-horizontalMargin, 0, cellContentFrame.width, cellContentFrame.height)
         }
         
-        // Checkmark icon
+        // Number Label and Service icon
         if self.textLabel!.textAlignment == .Center {
             self.numberLabel = UILabel(frame: CGRectMake(cellContentFrame.width - numberLabelWidth, (cellContentFrame.height - 30)/2, 20, 30))
         } else if self.textLabel!.textAlignment == .Left {
             self.serviceIcon = UIImageView(frame: CGRectMake(horizontalMargin, (cellContentFrame.height - 30)/2, 30, 30))
-            self.numberLabel = UILabel(frame: CGRectMake(cellContentFrame.width - numberLabelWidth, (cellContentFrame.height - 30)/2, 20, 30))
+            self.numberLabel = UILabel(frame: CGRectMake(cellContentFrame.width - numberLabelWidth, (cellContentFrame.height - 30)/2 + 2, 20, 30))
         } else {
             self.numberLabel = UILabel(frame: CGRectMake(horizontalMargin, (cellContentFrame.height - 30)/2, 20, 30))
         }
