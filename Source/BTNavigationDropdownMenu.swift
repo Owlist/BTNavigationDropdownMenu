@@ -441,7 +441,6 @@ class BTConfiguration {
     var cellTextLabelColor: UIColor?
     var cellTextLabelFont: UIFont!
     var cellNumberLabelFont: UIFont!
-    var cellNumberLabelValue: NSNumber!
     var cellTextLabelAlignment: NSTextAlignment!
     var cellSelectionColor: UIColor?
     var serviceIconImage: UIImage!
@@ -472,7 +471,6 @@ class BTConfiguration {
         self.cellTextLabelColor = UIColor.darkGrayColor()
         self.cellTextLabelFont = UIFont(name: "HelveticaNeue-Bold", size: 17)
         self.cellNumberLabelFont = UIFont(name: "HelveticaNeue-Bold", size: 17)
-        self.cellNumberLabelValue = 1
         self.cellTextLabelAlignment = NSTextAlignment.Left
         self.cellSelectionColor = UIColor.lightGrayColor()
         self.serviceIconImage = UIImage(contentsOfFile: serviceIconImagePath!)
@@ -571,7 +569,8 @@ class BTTableViewCell: UITableViewCell {
     
     var serviceIcon: UIImageView!
     var numberLabel: UILabel!
-    
+    var cellNumberLabelValue: NSNumber = 0
+
     var cellContentFrame: CGRect!
     var configuration: BTConfiguration!
     
@@ -608,7 +607,7 @@ class BTTableViewCell: UITableViewCell {
         self.serviceIcon.image = self.configuration.serviceIconImage
         self.serviceIcon.contentMode = UIViewContentMode.Center
         self.contentView.addSubview(self.serviceIcon)
-        self.numberLabel.text = self.configuration.cellNumberLabelValue.stringValue
+        self.numberLabel.text = self.cellNumberLabelValue.stringValue
         self.numberLabel.font = self.configuration.cellNumberLabelFont
         self.numberLabel.textColor = self.configuration.cellTextLabelColor
         self.contentView.addSubview(self.numberLabel)
