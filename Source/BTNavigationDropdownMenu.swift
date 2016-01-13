@@ -129,15 +129,6 @@ public class BTNavigationDropdownMenu: UIView {
         }
     }
     
-    // The value of the number at the end of the cell. Default is HelveticaNeue-Bold, size 19
-    public var cellNumberLabelValue: NSNumber! {
-        get {
-            return self.configuration.cellNumberLabelValue
-        }
-        set(value) {
-            self.configuration.cellNumberLabelValue = value
-        }
-    }
     
     // The checkmark icon of the cell
     public var serviceIconImage: UIImage! {
@@ -158,7 +149,7 @@ public class BTNavigationDropdownMenu: UIView {
             self.configuration.animationDuration = value
         }
     }
-
+    
     // The arrow next to navigation title
     public var arrowImage: UIImage! {
         get {
@@ -200,10 +191,18 @@ public class BTNavigationDropdownMenu: UIView {
         }
     }
     
+    public var counts: [AnyObject]! {
+        get {
+            return self.tableView.counts
+        }
+        set(value) {
+            self.tableView.counts = value
+        }
+    }
+    
     public var didSelectItemAtIndexHandler: ((indexPath: Int) -> ())?
     public var isShown: Bool!
-    public var counts: [AnyObject]!
-
+    
     private var navigationController: UINavigationController?
     private var configuration = BTConfiguration()
     private var topSeparator: UIView!
@@ -251,7 +250,7 @@ public class BTNavigationDropdownMenu: UIView {
         
         // Init properties
         self.setupDefaultConfiguration()
-
+        
         // Init button as navigation title
         self.menuButton = UIButton(frame: frame)
         self.menuButton.addTarget(self, action: "menuButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -461,7 +460,7 @@ class BTConfiguration {
         let imageBundle = NSBundle(URL: url!)
         let serviceIconImagePath = imageBundle?.pathForResource("checkmark_icon", ofType: "png")
         let arrowImagePath = imageBundle?.pathForResource("arrow_down_icon", ofType: "png")
-
+        
         // Default values
         self.menuTitleColor = UIColor.darkGrayColor()
         self.menuTitleLabelFont = UIFont(name: "HelveticaNeue-Bold", size: 17)
@@ -488,6 +487,7 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     // Public properties
     var configuration: BTConfiguration!
     var selectRowAtIndexPathHandler: ((indexPath: Int) -> ())?
+    internal var counts: [AnyObject]
     
     // Private properties
     private var items: [AnyObject]!
@@ -499,12 +499,17 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     init(frame: CGRect, items: [AnyObject], icons: [AnyObject], configuration: BTConfiguration) {
-        super.init(frame: frame, style: UITableViewStyle.Plain)
-        
         self.items = items
         self.icons = icons
         self.selectedIndexPath = 0
         self.configuration = configuration
+        let array = NSMutableArray.init(capacity: items.count)
+        for _ in icons {
+            array.addObject(0)
+        }
+        self.counts = array as [AnyObject]
+        
+        super.init(frame: frame, style: UITableViewStyle.Plain)
         
         // Setup table view
         self.delegate = self
@@ -540,6 +545,7 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.text = self.items[indexPath.row] as? String
         cell.serviceIcon?.image = UIImage(named: self.icons[indexPath.row] as! String)
         cell.cellNumberLabelValue = self.counts[indexPath.row] as! NSNumber
+        cell.numberLabel.text = cell.cellNumberLabelValue.stringValue
         return cell
     }
     
@@ -570,7 +576,7 @@ class BTTableViewCell: UITableViewCell {
     var serviceIcon: UIImageView!
     var numberLabel: UILabel!
     var cellNumberLabelValue: NSNumber = 0
-
+    
     var cellContentFrame: CGRect!
     var configuration: BTConfiguration!
     
@@ -582,7 +588,7 @@ class BTTableViewCell: UITableViewCell {
         // Setup cell
         cellContentFrame = CGRectMake(0, 0, (UIApplication.sharedApplication().keyWindow?.frame.width)!, self.configuration.cellHeight)
         self.contentView.backgroundColor = self.configuration.cellBackgroundColor
-
+        
         self.selectionStyle = UITableViewCellSelectionStyle.None
         self.textLabel!.textColor = self.configuration.cellTextLabelColor
         self.textLabel!.font = self.configuration.cellTextLabelFont
