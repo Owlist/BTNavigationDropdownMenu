@@ -588,7 +588,7 @@ class BTTableViewCell: UITableViewCell {
         if self.textLabel!.textAlignment == .Center {
             self.textLabel!.frame = CGRectMake(0, 0, cellContentFrame.width, cellContentFrame.height)
         } else if self.textLabel!.textAlignment == .Left {
-            self.textLabel!.frame = CGRectMake(horizontalMargin+serviceIconWidth+iconPadding, 0, cellContentFrame.width, cellContentFrame.height)
+            self.textLabel!.frame = CGRectMake(horizontalMargin+serviceIconWidth+iconPadding, 2, cellContentFrame.width, cellContentFrame.height)
         } else {
             self.textLabel!.frame = CGRectMake(-horizontalMargin, 0, cellContentFrame.width, cellContentFrame.height)
         }
