@@ -556,7 +556,7 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
 // MARK: Table view cell
 class BTTableViewCell: UITableViewCell {
     
-    let numberLabelWidth: CGFloat = 30
+    let numberLabelWidth: CGFloat = 33
     let serviceIconWidth: CGFloat = 50
     
     let horizontalMargin: CGFloat = 20
