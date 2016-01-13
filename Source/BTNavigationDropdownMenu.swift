@@ -538,7 +538,7 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = BTTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell", configuration: self.configuration)
         cell.textLabel?.text = self.items[indexPath.row] as? String
-        cell.serviceIcon?.image = UIImage(named: self.icons[indexPath.row] as? String)
+        cell.serviceIcon?.image = UIImage(named: self.icons[indexPath.row] as! String)
         return cell
     }
     
