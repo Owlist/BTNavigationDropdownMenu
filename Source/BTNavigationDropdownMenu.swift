@@ -202,6 +202,7 @@ public class BTNavigationDropdownMenu: UIView {
     
     public var didSelectItemAtIndexHandler: ((indexPath: Int) -> ())?
     public var isShown: Bool!
+    public var counts: [AnyObject]!
 
     private var navigationController: UINavigationController?
     private var configuration = BTConfiguration()
@@ -214,6 +215,7 @@ public class BTNavigationDropdownMenu: UIView {
     private var items: [AnyObject]!
     private var icons: [AnyObject]!
     private var menuWrapper: UIView!
+    
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -539,6 +541,7 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         let cell = BTTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell", configuration: self.configuration)
         cell.textLabel?.text = self.items[indexPath.row] as? String
         cell.serviceIcon?.image = UIImage(named: self.icons[indexPath.row] as! String)
+        cell.cellNumberLabelValue = self.counts[indexPath.row] as! NSNumber
         return cell
     }
     
