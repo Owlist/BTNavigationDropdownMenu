@@ -219,7 +219,7 @@ public class BTNavigationDropdownMenu: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @available(*, deprecated, message="Use init(navigationController:title:items:) instead", renamed="BTNavigationDropdownMenu(navigationController: UINavigationController?, title: String, items: [AnyObject])")
+    @available(*, deprecated, message="Use init(navigationController:title:items:) instead", renamed="BTNavigationDropdownMenu(navigationController: UINavigationController?, title: String, items: [AnyObject], icons: [AnyObject])")
     public convenience init(title: String, items: [AnyObject], icons: [AnyObject]) {
         self.init(navigationController: nil, title: title, items: items, icons: icons)
     }
